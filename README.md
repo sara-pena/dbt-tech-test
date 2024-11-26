@@ -51,7 +51,7 @@ installation of dbt core, the database adapter and packages. Also, a makefile co
 
 ## Data lineage - model architecture
 
-
+![dbt-dag](images/deel_dag.png)
 
 ### Staging
 

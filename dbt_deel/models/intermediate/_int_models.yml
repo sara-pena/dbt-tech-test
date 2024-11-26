@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: int_payments__enriched_dimensions
+    description: |
+      Adds additional dimensions to payments
+
+  - name: int_successful_payments
+    description: |
+      Filters accepted payments that have not had any chargeback

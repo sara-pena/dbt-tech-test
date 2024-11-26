@@ -51,7 +51,7 @@ installation of dbt core, the database adapter and packages. Also, a makefile co
 
 ## Data lineage - model architecture
 
-![dbt-dag](images/deel_dag.png)
+
 
 ### Staging
 
@@ -59,18 +59,16 @@ Materialized as views, staging models have a 1:1 relationship to sources and are
 
 If the data volume is too high, this could be materialized as table.
 
-I decided not to document every column, but instead leave it to the `marts` folder. However, I do test what is expected to be primary keys. This is helpful when debugging, a fast check is looking for duplicates in `marts` models and their parent `staging` ones, to see if the duplicates are more likely to come from the raw soure or were generated during transformation in `marts` or `int` steps.
-
-I opted to leave a select * at the end of each stg model so that, if a field is needed in a marts model, it can be added easily.
+I decided not to document every column, but instead leave it to the `marts` folder. However, I do test what is expected to be primary keys. This is helpful when debugging, a fast check is looking for duplicates in `marts` models and their parent `staging` ones, to see if the duplicates are more likely to come from the raw source or were generated during transformation in `marts` or `int` steps.
 
 ### Intermediate
 
 Materialized as ephemeral, this folder is used to perform more complex transformations, such as applying business logic or filtering, joining different entities or joining models before exposing to the final marts models, etc.
 
-Here I used a naming conversion like `int_<entity>__<transofrmation>`, in which the entity and the action performed by the model are separated by two
+Here I used a naming conversion like `int_<entity>__<transformation>`, in which the entity and the action performed by the model are separated by two
 underscores.
 
-For documentation, I only added a short description of what the model does. This is helpful as these model are ephemeral.
+For documentation, I only added a short description of what the model does. This is helpful as these models are ephemeral.
 
 ### Marts
 
@@ -83,9 +81,9 @@ The fields to expose in the final select of marts models are explicitly stated.
 This is helpful to keep only relevant data and avoid ambiguous references when querying the data and performing joins.
 
 This folder is splitted by business domains to keep it in order while more models are added. So, at the same level of the finance folder we could have
-anothe called `sales` or `marketing`
+another folder called `sales` or `marketing`
 
-For this exercise, there are two `dim` and one `fct` models. `fct_successful_payment` will contain a subset of the payments in `dim_payments`, where all the payments will be found, along with their attributes.
+For this exercise, there are is one `dim` and one `fct` models. `fct_successful_payment` will contain a subset of the payments in `dim_payments`, where all the payments will be found, along with their attributes. Since the data available for chargebacks is limited and they are related to payments, I opted for enriching the payments data with their respective chargeback record.
 
 To answer the  analyst's questions, I'd suggest this:
 1. Compute acceptance rate over time:
@@ -116,13 +114,12 @@ accepted_payments as (
 	
 )
 	
-select *,
-	
-(accepted_payments::numeric(7, 2)/total_payments::numeric(7, 2)* 100) as acceptance_rate
+select
+	*,
+	(accepted_payments::numeric(7, 2)/total_payments::numeric(7, 2)* 100) as acceptance_rate
 	
 from total_payments
 left join accepted_payments using (_month);
-
 ```
 
 2. List the countries where the amount of declined transactions went over $25M:
@@ -138,7 +135,6 @@ where state = 'DECLINED'
 group by 1
 having sum(payment_amount_usd) > 25000000
 order by 2 desc;
-
 ````
 
 3. Spot transactions with missing chargeback data

@@ -1,0 +1,12 @@
+space_x:
+  target: dev
+  outputs:
+    dev:
+      database: space_x
+      host: localhost
+      port: 5432
+      user: your_database_user
+      password: your_super_safe_password
+      type: postgres
+      schema: dbt_your_name
+      threads: 1

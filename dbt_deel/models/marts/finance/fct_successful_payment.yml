@@ -1,0 +1,15 @@
+
+version: 2
+
+models:
+  - name: fct_successful_payment
+    description: |
+      Table containing only successful payments (accepted and without chargeback created)
+      and the date when they occurred.
+    columns:
+      - name: payment_id
+        description: Unique identifier for each payment
+        data_tests:
+          - unique
+      - name: payment_datetime_utc
+        description: Datetime when the payment occurred in UTC timezone

@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: deel_raw
+    tables:
+      - name: payments
+        identifier: acceptance
+        description: "Source table for Globepay payments"
+
+      - name: chargebacks
+        description: "Source table for Globepay chargebacks"

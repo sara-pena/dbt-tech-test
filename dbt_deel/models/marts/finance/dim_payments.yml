@@ -1,0 +1,28 @@
+
+version: 2
+
+models:
+  - name: dim_payments
+    description: |
+      Table containing all the payments with their attributes
+    columns:
+      - name: payment_id
+        description: Unique identifier for each payment
+        data_tests:
+          - unique
+      - name: chargeback_id
+        description: Identifier for the related chargeback
+      - name: has_chargeback
+        description: Booolean to identify if the payment has a chargeback
+      - name: payment_datetime_utc
+        description: Datetime of the payment localized as UTC
+      - name: state
+        description: Status of the payment
+      - name: payment_amount
+        description: Amount of the payment in local currency
+      - name: payment_amount_usd
+        description: Amount of the payment in USD
+      - name: country
+        description: Country of origin of the payment
+      - name: currency
+        description: Payment currency

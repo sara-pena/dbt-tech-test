@@ -41,10 +41,10 @@ Remember to run `dbt-deps` once the package is installed.
 from where the values can be mapped to the `profiles.yml` file. Such `.env` file should be included in the `.gitignore` file.
 Having independent environments will allow developers to write in a separate database/schema from production, with their own roles, reducing the risk of mistakenly alter the production pipeline and databases.
 
-Another advantage of seprating both environments is limiting the data modeled in development, it can reduce processing costs in the warehouse and reduce development time as well.
+  Another advantage of seprating both environments is limiting the data modeled in development, it can reduce processing costs in the warehouse and reduce development time as well.
 
 - Containerize the environment set up, so it's reproducible along the developers team and production. The container could include the
-installation of dbt core, the database adapter and packages. Also, a makefile could be created to condense the most commonly used dbt commands and their configurations. For example the `--profiles-dir` flag mentioned before should be automated this way, so developers don't need to enter it everytime.
+installation of dbt core, the database adapter and packages. Also, a makefile could be created to condense the most commonly used dbt commands and their configurations. 
 - Something useful and pretty simple to implement is a PR template. This eases the reviewing process and helps developers allign on the checklist to consider a PR submit ready to review.
 -  Setting a proper CI/CD pipeline to automate code-quality checks, data lineage validation, deployment to production, among many more usecases.
 - Lastly, implementing a data observability tool such us Elementary, Montecarlo or any other package that heps automating the identification and fix of data quality issues.
